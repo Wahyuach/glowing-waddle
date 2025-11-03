@@ -378,18 +378,18 @@ class TernakController extends Controller
         $newCurrentWeight = $request->input('current_weight');
         $newLastWeightDate = $request->input('last_weight_date');
 
-
-        // Hanya buat riwayat bobot baru jika current_weight atau last_weight_date berubah
-        if ($newCurrentWeight !== $oldCurrentWeight || $newLastWeightDate !== ($oldLastWeightDate ? $oldLastWeightDate->format('Y-m-d') : null)) {
+        $oldLastWeightDateObj = $oldLastWeightDate ? Carbon::parse($oldLastWeightDate) : null;
+        
+        if ($newCurrentWeight !== $oldCurrentWeight || $newLastWeightDate !== ($oldLastWeightDateObj ? $oldLastWeightDateObj->format('Y-m-d') : null)) {
             $data['last_weight_date'] = $newLastWeightDate ? Carbon::parse($newLastWeightDate) : Carbon::now();
-
+        
             WeightHistory::create([
                 'ternak_tag_number' => $ternak->tag_number,
                 'weight' => $newCurrentWeight,
                 'measurement_date' => $data['last_weight_date'],
             ]);
         }
-
+        
         $ternak->update($data); // Update data ternak utama
 
         $this->updateTernakUpweight($ternak); // Re-calculate upweight setelah update
