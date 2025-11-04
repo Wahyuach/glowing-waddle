@@ -385,13 +385,13 @@ return [
             'label_color' => 'success',
             'can' => 'is-admin', // <-- HANYA ADMIN
         ],
-        [
-            'text' => 'Kejadian',
-            'url' => 'admin/logbook',
-            'icon' => 'fas fa-fw fa-book', // Ganti icon dikit
-            'label_color' => 'success',
-            'can' => 'is-admin', // <-- HANYA ADMIN
-        ],
+        // [
+        //     'text' => 'Kejadian',
+        //     'url' => 'admin/logbook',
+        //     'icon' => 'fas fa-fw fa-book', // Ganti icon dikit
+        //     'label_color' => 'success',
+        //     'can' => 'is-admin', // <-- HANYA ADMIN
+        // ],
 
         // =======================================================
         // MENU KHUSUS INVESTOR (DIPASANG GATE 'is-investor')
