@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Investor;
+use Illuminate\Support\Str;
+
 class TernakController extends Controller
 {
     /**
@@ -263,6 +265,15 @@ class TernakController extends Controller
 
         $data = $request->all();
 
+        if (!empty($data['photo_path']) && Str::contains($data['photo_path'], '/file/d/')) {
+            // 1. Pecah link-nya berdasarkan '/'
+            $parts = explode('/', $data['photo_path']);
+            // 2. Ambil ID-nya (biasanya di posisi ke-5)
+            $fileID = $parts[5];
+            // 3. Buat link thumbnail baru
+            $data['photo_path'] = 'https://drive.google.com/thumbnail?id=' . $fileID;
+        }
+
         $data['umur_hari'] = $request->input('date_of_birth') ? Carbon::parse($request->input('date_of_birth'))->diffInDays(Carbon::now()) : null;
         $data['hari_di_peternakan'] = $request->input('date_of_entry') ? Carbon::parse($request->input('date_of_entry'))->diffInDays(Carbon::now()) : null;
 
@@ -371,6 +382,15 @@ class TernakController extends Controller
 
         $data = $request->all();
 
+        if (!empty($data['photo_path']) && Str::contains($data['photo_path'], '/file/d/')) {
+            // 1. Pecah link-nya berdasarkan '/'
+            $parts = explode('/', $data['photo_path']);
+            // 2. Ambil ID-nya (biasanya di posisi ke-5)
+            $fileID = $parts[5];
+            // 3. Buat link thumbnail baru
+            $data['photo_path'] = 'https://drive.google.com/thumbnail?id=' . $fileID;
+        }
+
         $data['umur_hari'] = $request->input('date_of_birth') ? Carbon::parse($request->input('date_of_birth'))->diffInDays(Carbon::now()) : null;
         $data['hari_di_peternakan'] = $request->input('date_of_entry') ? Carbon::parse($request->input('date_of_entry'))->diffInDays(Carbon::now()) : null;
 
@@ -380,17 +400,17 @@ class TernakController extends Controller
         $newLastWeightDate = $request->input('last_weight_date');
 
         $oldLastWeightDateObj = $oldLastWeightDate ? Carbon::parse($oldLastWeightDate) : null;
-        
+
         if ($newCurrentWeight !== $oldCurrentWeight || $newLastWeightDate !== ($oldLastWeightDateObj ? $oldLastWeightDateObj->format('Y-m-d') : null)) {
             $data['last_weight_date'] = $newLastWeightDate ? Carbon::parse($newLastWeightDate) : Carbon::now();
-        
+
             WeightHistory::create([
                 'ternak_tag_number' => $ternak->tag_number,
                 'weight' => $newCurrentWeight,
                 'measurement_date' => $data['last_weight_date'],
             ]);
         }
-        
+
         $ternak->update($data); // Update data ternak utama
 
         $this->updateTernakUpweight($ternak); // Re-calculate upweight setelah update
@@ -429,7 +449,7 @@ class TernakController extends Controller
             return redirect()->route('ternak.index')->with('error', 'Terjadi kesalahan saat menghapus data: ' . $e->getMessage());
         }
     }
-   
+
 
     /**
      * Import data Ternak dari file CSV.
@@ -620,7 +640,7 @@ class TernakController extends Controller
             'entry_weight',
             'current_weight',
             'last_weight_date',
-            'upweight', 
+            'upweight',
             'kandang_id',
             'dam_tag_number',
             'sire_tag_number',
@@ -827,5 +847,4 @@ class TernakController extends Controller
 
         return view('investor.ternakku', compact('ternaks'));
     }
-
 }
