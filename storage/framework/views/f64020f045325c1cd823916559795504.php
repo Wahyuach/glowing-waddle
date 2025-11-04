@@ -1,7 +1,6 @@
 
 
 
-
 <?php $__env->startSection('content'); ?>
 <div class="container mx-auto p-4 max-w-lg">
     <h1 class="text-2xl font-bold mb-4">Profil Pengguna</h1>
