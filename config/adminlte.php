@@ -293,6 +293,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Menu Keamanan (Gate)
+    |--------------------------------------------------------------------------
+    |
+    | Di sini kita mendaftarkan Gate yang akan digunakan oleh menu sidebar.
+    | Gate ini sudah kita definisikan di AuthServiceProvider.
+    |
+    */
+
+    'permission_prefix' => 'permission:', // Biarkan default
+    
+    'gates' => [
+        // Daftarkan Gate kita di sini (opsional, tapi rapi)
+        'is-admin' => 'is-admin',
+        'is-investor' => 'is-investor',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Menu Items
     |--------------------------------------------------------------------------
     |
@@ -304,7 +322,18 @@ return [
     */
 
     'menu' => [
-        // Navbar items:
+
+        [
+            'type' => 'navbar-search',
+            'text' => 'search',
+            'topnav_right' => false,
+        ],
+        [
+            'type' => 'fullscreen-widget',
+            'topnav_right' => false,
+        ],
+
+       // Navbar items:
         [
             'type' => 'navbar-search',
             'text' => 'search',
@@ -316,44 +345,77 @@ return [
         ],
 
         // Sidebar items:
-        ['header' => 'Data'],
+
+        // =======================================================
+        // MENU KHUSUS ADMIN (DIPASANG GATE 'is-admin')
+        // =======================================================
+        ['header' => 'ADMIN AREA', 'can' => 'is-admin'],
         [
-            'text' => ' Ternak',
+            'text' => 'Ternak (Admin)', // Ganti nama biar jelas
             'url' => 'admin/ternak',
             'icon' => 'fas fa-fw fa-paw',
             'label_color' => 'success',
+            'can' => 'is-admin', // <-- HANYA ADMIN
         ],
         [
-            'text' => ' Kavling',
+            'text' => 'Kavling',
             'url' => 'admin/kavling',
             'icon' => 'fas fa-fw fa-warehouse',
             'label_color' => 'success',
+            'can' => 'is-admin', // <-- HANYA ADMIN
         ],
         [
-            'text' => ' Pakan',
+            'text' => 'Pakan',
             'url' => 'admin/pakan',
             'icon' => 'fas fa-fw fa-seedling',
             'label_color' => 'success',
+            'can' => 'is-admin', // <-- HANYA ADMIN
         ],
         [
-            'text' => ' Investor',
+            'text' => 'Manajemen Investor', // Ganti nama biar jelas
             'url' => 'admin/investor',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-user-shield', // Ganti icon dikit
             'label_color' => 'success',
+            'can' => 'is-admin', // <-- HANYA ADMIN
         ],
         [
-            'text' => ' ABK',
+            'text' => 'ABK',
             'url' => 'admin/abk',
             'icon' => 'fas fa-fw fa-people-carry',
             'label_color' => 'success',
+            'can' => 'is-admin', // <-- HANYA ADMIN
+        ],
+        [
+            'text' => 'Kejadian',
+            'url' => 'admin/logbook',
+            'icon' => 'fas fa-fw fa-book', // Ganti icon dikit
+            'label_color' => 'success',
+            'can' => 'is-admin', // <-- HANYA ADMIN
         ],
 
-        // ['header' => 'account_settings'],
-        // [
-        //     'text' => 'profile',
-        //     'url' => 'admin/settings/profile',
-        //     'icon' => 'fas fa-fw fa-user',
-        // ],
+        // =======================================================
+        // MENU KHUSUS INVESTOR (DIPASANG GATE 'is-investor')
+        // =======================================================
+        ['header' => 'INVESTOR AREA', 'can' => 'is-investor'],
+        [
+            'text' => 'Ternak Saya',
+            'url' => 'ternak-saya', 
+            'icon' => 'fas fa-fw fa-horse-head',
+            'label_color' => 'primary',
+            'can' => 'is-investor', 
+        ],
+
+
+        // =======================================================
+        // MENU UNTUK SEMUA USER (TIDAK DIPASANG GATE)
+        // =======================================================
+        ['header' => 'PENGATURAN AKUN'],
+        [
+            'text' => 'Profile',
+            'url' => 'profile/', // (Pastikan rute ini bener, 'profile' aja?)
+            'icon' => 'fas fa-fw fa-user',
+            // (Tidak ada 'can', jadi semua bisa lihat)
+        ],
         // [
         //     'text' => 'change_password',
         //     'url' => 'admin/settings',

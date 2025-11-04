@@ -165,12 +165,12 @@
 @stop
 
 @section('js')
-    <script>
+    <!-- <script>
         // Menampilkan modal jika ada error validasi impor CSV
         @if($errors->has('csv_file') || $errors->has('import_errors'))
             $(document).ready(function() {
                 $('#importCsvModal').modal('show');
             });
         @endif
-    </script>
+    </script> -->
 @stop

@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Investor;
 class TernakController extends Controller
 {
     /**
@@ -398,25 +399,6 @@ class TernakController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  string  $tag_number
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    // public function destroy(string $tag_number): \Illuminate\Http\RedirectResponse
-    // {
-    //     $ternak = Ternak::find($tag_number);
-
-    //     if (!$ternak) {
-    //         abort(404, 'Data Ternak tidak ditemukan.');
-    //     }
-
-    //     $ternak->delete();
-
-    //     return redirect()->route('ternak.index')->with('success', 'Data ternak berhasil dihapus!');
-    // }
-
-    /**
      * Hapus banyak data ternak berdasarkan checkbox terpilih.
      *
      * @param \Illuminate\Http\Request $request
@@ -447,7 +429,7 @@ class TernakController extends Controller
             return redirect()->route('ternak.index')->with('error', 'Terjadi kesalahan saat menghapus data: ' . $e->getMessage());
         }
     }
-    // --- AKHIR KODE YANG DITAMBAHKAN ---
+   
 
     /**
      * Import data Ternak dari file CSV.
@@ -638,7 +620,7 @@ class TernakController extends Controller
             'entry_weight',
             'current_weight',
             'last_weight_date',
-            'upweight', // <<< TAMBAHKAN INI
+            'upweight', 
             'kandang_id',
             'dam_tag_number',
             'sire_tag_number',
@@ -827,4 +809,23 @@ class TernakController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus riwayat bobot. Silakan coba lagi.');
         }
     }
+
+    /**
+     * ---------------------------------------------------
+     *  METHOD BARU UNTUK INVESTOR
+     * ---------------------------------------------------
+     */
+    public function myTernak()
+    {
+        $userId = Auth::id();
+        $investor = Investor::where('user_id', $userId)->first();
+        $ternaks = [];
+
+        if ($investor) {
+            $ternaks = Ternak::where('investor_id', $investor->id)->get();
+        }
+
+        return view('investor.ternakku', compact('ternaks'));
+    }
+
 }

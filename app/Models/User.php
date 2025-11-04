@@ -21,8 +21,20 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
 
+    /**
+     * Cek apakah user adalah Investor.
+     */
+    public function isInvestor(): bool
+    {
+        return $this->role === 'investor';
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
