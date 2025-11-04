@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,11 +21,16 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'subscription_status',
     ];
-    public function isAdmin(): bool
+
+
+    public function isAdmin()
     {
         return $this->role === 'admin';
     }
+
+
 
     /**
      * Cek apakah user adalah Investor.

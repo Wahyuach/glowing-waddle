@@ -10,6 +10,7 @@ use App\Http\Controllers\KandangController;
 use App\Http\Controllers\PakanController;
 use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\AbkController;
+use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\KavlingController;
 
 
@@ -25,16 +26,23 @@ Auth::routes();
 // ---------------------------------------------------------------------
 Route::middleware(['auth'])->group(function () {
 
+
+
     // Dashboard utama (investor & admin bisa lihat)
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    
-    // Profile (investor & admin bisa lihat)
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profil.index');
 
+    // Profile (investor & admin bisa lihat)
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profil.index');        
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profil.update'); // This needs to be defined!
+    Route::post('/profile/reset-password', [ProfileController::class, 'resetPassword'])->name('profile.reset-password');
+    Route::post('/profile/subscribe', [ProfileController::class, 'subscribe'])->name('profil.subscribe');
+    // Endpoint to mark payment as completed (called from client after snap onSuccess)
+    Route::post('/profile/payment-complete', [ProfileController::class, 'paymentComplete'])->name('profil.payment.complete');
+
+    
     //RUTE KHUSUS INVESTOR !!
     // URL: /ternak-saya
     Route::get('/ternak-saya', [TernakController::class, 'myTernak'])->name('investor.ternakku');
-
 });
 
 
@@ -56,11 +64,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Rute Kandang NESTED 
     // URL: /admin/kavling/{kavling}/kandang
-    Route::prefix('kavling/{kavling}')->group(function () { 
+    Route::prefix('kavling/{kavling}')->group(function () {
         Route::get('kandang', [KandangController::class, 'index'])->name('kavling.kandang.index');
         Route::get('kandang/create', [KandangController::class, 'create'])->name('kavling.kandang.create');
         Route::post('kandang', [KandangController::class, 'store'])->name('kavling.kandang.store');
-        Route::get('kandang/{kandang}', [KandangController::class, 'show'])->name('kavling.kandang.show'); 
+        Route::get('kandang/{kandang}', [KandangController::class, 'show'])->name('kavling.kandang.show');
         Route::get('kandang/{kandang}/edit', [KandangController::class, 'edit'])->name('kavling.kandang.edit');
         Route::put('kandang/{kandang}', [KandangController::class, 'update'])->name('kavling.kandang.update');
         Route::delete('kandang/{kandang}', [KandangController::class, 'destroy'])->name('kavling.kandang.destroy');
@@ -75,7 +83,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('ternak/{ternak}/edit', [TernakController::class, 'edit'])->name('ternak.edit');
     Route::put('ternak/{ternak}', [TernakController::class, 'update'])->name('ternak.update');
     Route::delete('ternak/bulk-delete', [TernakController::class, 'bulkDelete'])->name('ternak.bulkDelete');
-    
+
     // Rute weight history 
     Route::post('ternak/{ternak}/weights', [TernakController::class, 'storeWeightHistory'])->name('ternak.weights.store');
     Route::put('weights/{id}', [TernakController::class, 'updateWeightHistory'])->name('weights.update');
@@ -114,4 +122,22 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('abk/{abk}', [AbkController::class, 'destroy'])->name('abk.destroy');
     Route::post('abk/import', [AbkController::class, 'import'])->name('abk.import');
 
+
+    // // --- Rute Logbook (Catatan Kejadian) ---
+    // Route::prefix('logbooks')->group(function () {
+    //     // Halaman Daftar Logbook
+    //     Route::get('/', [LogbookController::class, 'index'])->name('logbooks.index');
+    //     // Halaman Tambah Logbook
+    //     Route::get('/create', [LogbookController::class, 'create'])->name('logbooks.create');
+    //     // Proses Simpan Logbook
+    //     Route::post('/', [LogbookController::class, 'store'])->name('logbooks.store');
+    //     // Halaman Detail Logbook
+    //     Route::get('/{logbook}', [LogbookController::class, 'show'])->name('logbooks.show');
+    //     // Halaman Edit Logbook
+    //     Route::get('/{logbook}/edit', [LogbookController::class, 'edit'])->name('logbooks.edit');
+    //     // Proses Update Logbook
+    //     Route::put('/{logbook}', [LogbookController::class, 'update'])->name('logbooks.update');
+    //     // Proses Hapus Logbook
+    //     Route::delete('/{logbook}', [LogbookController::class, 'destroy'])->name('logbooks.destroy');
+    // });
 });
