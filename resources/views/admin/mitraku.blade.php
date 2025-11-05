@@ -44,6 +44,7 @@
                     <tr>
                         <th>Mitra</th>
                         <th>Status</th>
+                        <th>Aktif Sampai</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -65,7 +66,19 @@
                             <span class="badge badge-secondary">Nonaktif</span>
                             @endif
                         </td>
-
+                        <td>
+                            @if ($mitra->subscription_expires_at)
+                            <small>
+                                @if ($mitra->subscription_expires_at < now())
+                                    <b class="text-danger">{{ $mitra->subscription_expires_at->format('d M Y') }}</b>
+                                    @else
+                                    <b class="text-success">{{ $mitra->subscription_expires_at->format('d M Y') }}</b>
+                                    @endif
+                            </small>
+                            @else
+                            <small class="text-muted"><i>N/A</i></small>
+                            @endif
+                        </td>
 
                         <td>
 
@@ -82,7 +95,7 @@
                                 </button>
                                 @endif
                             </form>
-                            
+
                             <form action="{{ route('users.addSubscriptionTime', $mitra->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Tambah 7 hari untuk mitra ini?');">
                                 @csrf
                                 <input type="hidden" name="days" value="7">
