@@ -147,7 +147,16 @@ class ProfileController extends Controller
 
         // Update user's subscription status
         try {
+
+            $daysToAdd = 30; 
+            
+            $baseDate = ($user->subscription_expires_at && $user->subscription_expires_at > now())
+                            ? $user->subscription_expires_at
+                            : now();
+            
+            $newExpiryDate = $baseDate->addDays($daysToAdd);
             $user->subscription_status = 'active';
+            $user->subscription_expires_at = $newExpiryDate;
             $user->save();
 
             // clear session payment data
