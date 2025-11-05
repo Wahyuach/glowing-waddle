@@ -16,24 +16,43 @@
 
 
 <!-- Subscription Status (Only for Mitra) -->
-@if($user->isMitra())
-<div class="card mt-4">
-    <div class="card-header">
-        <h3 class="card-title">Subscription Status</h3>
-    </div>
-    <div class="card-body">
-        <p><strong>Status:</strong> {{ ucfirst($subscriptionStatus) }}</p>
+@if ($user->isMitra())
+<div class="col-md-6">
+    <div class="card card-warning card-outline">
+        <div class="card-header">
+            <h3 class="card-title">Status Langganan</h3>
+        </div>
+        <div class="card-body">
+            @if ($user->subscription_status === 'Active' && $user->subscription_expires_at > now())
+            {{-- 1. Status Aktif --}}
+            <div class="alert alert-success">
+                <h5><i class="icon fas fa-check"></i> Akun Aktif!</h5>
+                Langganan Anda aktif sampai:
+                <b>{{ $user->subscription_expires_at->format('d M Y, H:i') }}</b>
+            </div>
+            @else
+            {{-- 2. Status Inactive / Expired --}}
+            <div class="alert alert-danger">
+                <h5><i class="icon fas fa-ban"></i> Akun Tidak Aktif</h5>
+                @if ($user->subscription_expires_at && $user->subscription_expires_at < now())
+                    Langganan Anda telah berakhir pada:
+                    <b>{{ $user->subscription_expires_at->format('d M Y') }}</b>
+                    @else
+                    Akun Anda saat ini dinonaktifkan oleh Admin.
+                    @endif
+            </div>
+            @endif
 
-        <!-- Show Subscribe/Payment button based on status -->
-        @if($subscriptionStatus === 'inactive')
-        <form action="{{ route('profil.subscribe') }}" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-success">Subscribe Now</button>
-        </form>
-        @else
-        <!-- No button if the status is active -->
-        <p>You are already subscribed. Thank you!</p>
-        @endif
+            {{-- TOMBOL BAYAR (Muncul selalu) --}}
+            <p>Perpanjang langganan Anda selama 30 hari (Rp 1.000,00).</p>
+            {{-- Ini form yang manggil method 'subscribe' sampeyan --}}
+            <form action="{{ route('profile.subscribe') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-credit-card"></i> Bayar & Perpanjang 30 Hari
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 @endif
