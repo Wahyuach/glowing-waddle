@@ -38,7 +38,7 @@
             <h3 class="card-title">Manajemen Mitra</h3>
         </div>
 
-        <div class="card-body p-0">
+        <div class="card-body">
             <table class="table table-hover">
                 <thead>
                     <tr>
