@@ -36,7 +36,7 @@ class ProfileController extends Controller
             $user = Auth::user();
 
             if (!$user->isMitra()) {  
-                return redirect()->route('profil.index')
+                return redirect()->route('profile.index')
                     ->with('error', 'You are not authorized to subscribe.');
             }
 
@@ -69,13 +69,13 @@ class ProfileController extends Controller
             ]);
 
             // Return to profile page with success message
-            return redirect()->route('profil.index')
+            return redirect()->route('profile.index')
                 ->with('snap_token', $snap_token);
 
         } catch (\Exception $e) {
             Log::error('Subscription Error: ' . $e->getMessage());
             
-            return redirect()->route('profil.index')
+            return redirect()->route('profile.index')
                 ->with('error', 'Payment initialization failed. Please try again later.');
         }
     }
@@ -97,7 +97,7 @@ class ProfileController extends Controller
         ]);
 
        
-        return redirect()->route('profil.index')->with('success', 'Profile updated successfully.');
+        return redirect()->route('profile.index')->with('success', 'Profile updated successfully.');
     }
 
 
@@ -119,7 +119,7 @@ class ProfileController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('profil.index')->with('success', 'Password updated successfully.');
+        return redirect()->route('profile.index')->with('success', 'Password updated successfully.');
     }
 
 

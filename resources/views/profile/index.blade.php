@@ -135,7 +135,7 @@
         snap.pay(snapToken, {
             onSuccess: function(result) {
                 // Notify server to mark subscription active
-                fetch("{{ route('profil.payment.complete') }}", {
+                fetch("{{ route('profile.payment.complete') }}", {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -151,21 +151,21 @@
                     .then(response => response.json())
                     .then(data => {
                         // Redirect back to profile with a status
-                        window.location.href = "{{ route('profil.index') }}?status=success";
+                        window.location.href = "{{ route('profile.index') }}?status=success";
                     })
                     .catch(err => {
                         console.error('Error notifying server:', err);
-                        window.location.href = "{{ route('profil.index') }}?status=error";
+                        window.location.href = "{{ route('profile.index') }}?status=error";
                     });
             },
             onPending: function(result) {
-                window.location.href = "{{ route('profil.index') }}?status=pending";
+                window.location.href = "{{ route('profile.index') }}?status=pending";
             },
             onError: function(result) {
-                window.location.href = "{{ route('profil.index') }}?status=error";
+                window.location.href = "{{ route('profile.index') }}?status=error";
             },
             onClose: function() {
-                window.location.href = "{{ route('profil.index') }}?status=closed";
+                window.location.href = "{{ route('profile.index') }}?status=closed";
             }
         });
     }
