@@ -82,7 +82,7 @@
 
                         <td>
 
-                            <form action="{{ route('users.toggleStatus', $mitra->id) }}" method="POST" onsubmit="return confirm('Anda yakin ingin mengubah status mitra ini?');">
+                            <form action="{{ route('users.toggleStatus', $mitra->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Anda yakin ingin mengubah status mitra ini?');">
                                 @csrf
 
                                 @if ($mitra->subscription_status === 'Active')
@@ -96,7 +96,7 @@
                                 @endif
                             </form>
 
-                            <form action="{{ route('users.addSubscriptionTime', $mitra->id) }}" method="POST"  onsubmit="return confirm('Tambah 7 hari untuk mitra ini?');">
+                            <form action="{{ route('users.addSubscriptionTime', $mitra->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Tambah 7 hari untuk mitra ini?');">
                                 @csrf
                                 <input type="hidden" name="days" value="7">
                                 <button type="submit" class="btn btn-info btn-xs" title="Tambah 7 Hari">
@@ -104,7 +104,7 @@
                                 </button>
                             </form>
 
-                            <form action="{{ route('users.addSubscriptionTime', $mitra->id) }}" method="POST"  onsubmit="return confirm('Tambah 30 hari untuk mitra ini?');">
+                            <form action="{{ route('users.addSubscriptionTime', $mitra->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Tambah 30 hari untuk mitra ini?');">
                                 @csrf
                                 <input type="hidden" name="days" value="30">
                                 <button type="submit" class="btn btn-warning btn-xs" title="Tambah 30 Hari">
