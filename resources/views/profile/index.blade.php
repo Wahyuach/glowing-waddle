@@ -61,7 +61,7 @@
     </div>
     <div class="card-body">
         <!-- Profile form to update name and email -->
-        <form action="{{ route('profil.update') }}" method="POST">
+        <form action="{{ route('profile.update') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="name">Name</label>

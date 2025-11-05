@@ -34,10 +34,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // Profile (investor & admin bisa lihat)
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profil.index');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profil.update'); // This needs to be defined!
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update'); // This needs to be defined!
     Route::post('/profile/reset-password', [ProfileController::class, 'resetPassword'])->name('profile.reset-password');
-    Route::post('/profile/subscribe', [ProfileController::class, 'subscribe'])->name('profil.subscribe');
+    Route::post('/profile/subscribe', [ProfileController::class, 'subscribe'])->name('profile.subscribe');
     // Endpoint to mark payment as completed (called from client after snap onSuccess)
     Route::post('/profile/payment-complete', [ProfileController::class, 'paymentComplete'])->name('profil.payment.complete');
 
