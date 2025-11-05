@@ -15,7 +15,7 @@
 @endif
 
 
-<!-- Subscription Status (Only for Mitra) -->
+{{-- KARTU STATUS LANGGANAN (KHUSUS MITRA) --}}
 @if ($user->isMitra())
 <div class="col-md-6">
     <div class="card card-warning card-outline">
@@ -23,39 +23,58 @@
             <h3 class="card-title">Status Langganan</h3>
         </div>
         <div class="card-body">
+
             @if ($user->subscription_status === 'Active' && $user->subscription_expires_at > now())
             <div class="alert alert-success">
                 <h5><i class="icon fas fa-check"></i> Akun Aktif!</h5>
-                Langganan Anda aktif sampai:
-                <b>{{ $user->subscription_expires_at->format('d M Y, H:i') }}</b>
+                Langganan Anda aktif sampai: <b>{{ $user->subscription_expires_at->format('d M Y, H:i') }}</b>
             </div>
-            @else
-            <div class="alert alert-danger">
-                <h5><i class="icon fas fa-ban"></i> Akun Tidak Aktif</h5>
-                @if ($user->subscription_expires_at && $user->subscription_expires_at < now())
-                    Langganan Anda telah berakhir pada:
-                    <b>{{ $user->subscription_expires_at->format('d M Y') }}</b>
-                    @else
-                    Akun Anda saat ini dinonaktifkan oleh Admin.
-                    @endif
-            </div>
-            @endif
-
-            <p>Perpanjang langganan Anda selama 30 hari (Rp 1.000,00).</p>
-            <form action="{{ route('profile.subscribe') }}" method="POST">
+            <p>Perpanjang atau tambah masa aktif langganan.</p>
+            <form action="{{ route('profil.subscribe') }}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-primary btn-block">
-                    <i class="fas fa-credit-card"></i> Bayar & Perpanjang 30 Hari
+                    <i class="fas fa-credit-card"></i> Bayar
                 </button>
             </form>
+
+            @elseif (!$user->subscription_expires_at || $user->subscription_expires_at <= now())
+                <div class="alert alert-danger">
+                <h5><i class="icon fas fa-ban"></i> Akun Expired</h5>
+                @if ($user->subscription_expires_at)
+                Langganan Anda telah berakhir pada: <b>{{ $user->subscription_expires_at->format('d M Y') }}</b>
+                @else
+                Anda belum memiliki langganan aktif.
+                @endif
         </div>
+        <p>Silakan perpanjang langganan Anda.</p>
+        <form action="{{ route('profil.subscribe') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-primary btn-block">
+                <i class="fas fa-credit-card"></i> Bayar
+            </button>
+        </form>
+
+        @elseif ($user->subscription_status === 'Inactive')
+        <div class="alert alert-warning">
+            <h5><i class="icon fas fa-pause-circle"></i> Akun Dinonaktifkan</h5>
+            Akun Anda saat ini dinonaktifkan oleh Admin.
+            @if ($user->subscription_expires_at > now())
+            <br>Sisa masa aktif Anda: <b>{{ $user->subscription_expires_at->diffForHumans() }}</b>
+            @endif
+        </div>
+        <p>Harap hubungi Admin untuk mengaktifkan kembali akun Anda.</p>
+        {{-- Tombol bayar kita DISABLE --}}
+        <button type="button" class="btn btn-secondary btn-block" disabled>
+            <i class="fas fa-credit-card"></i> Bayar (Dibekukan)
+        </button>
+
+        @endif
     </div>
 </div>
-@endif
 
 
 <!-- Profile Information Card -->
-<div class="card">
+<div class="card-col-md-4">
     <div class="card-header">
         <h3 class="card-title">Profile Information</h3>
     </div>
