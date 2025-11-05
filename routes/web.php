@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
     
     //RUTE KHUSUS INVESTOR !!
     // URL: /ternak-saya
-    Route::get('/ternak-saya', [TernakController::class, 'myTernak'])->name('investor.ternakku');
+    Route::get('/mitra-saya', [TernakController::class, 'myTernak'])->name('investor.ternakku');
 });
 
 
