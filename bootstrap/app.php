@@ -12,7 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'admin' => \App\Http\Middleware\IsMitra::class,
+            'mitra' => \App\Http\Middleware\IsMitra::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
