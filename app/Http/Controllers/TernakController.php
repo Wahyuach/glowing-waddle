@@ -846,7 +846,7 @@ class TernakController extends Controller
 
 
         // 7. Tampilkan ke view BARU (yang udah di-upgrade)
-        return view('investor.my_ternak', [
+        return view('admin.mitraku', [
             'usersMitra' => $usersMitra, // <-- Kirim data baru ini ke view
         ]);
     }
