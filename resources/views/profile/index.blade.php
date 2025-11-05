@@ -39,7 +39,7 @@
 
             @elseif (!$user->subscription_expires_at || $user->subscription_expires_at <= now())
                 <div class="alert alert-danger">
-                <h5><i class="icon fas fa-ban"></i> Akun Expired</h5>
+                <h5><i class="icon fas fa-ban"></i> Akun Nonaktif</h5>
                 @if ($user->subscription_expires_at)
                 Langganan Anda telah berakhir pada: <b>{{ $user->subscription_expires_at->format('d M Y') }}</b>
                 @else
