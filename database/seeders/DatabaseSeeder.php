@@ -15,8 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            // Panggil seeder yang tidak memiliki ketergantungan terlebih dahulu
-            // Urutan ini sangat penting untuk mencegah error foreign key
+            
             InvestorSeeder::class,
             AbkSeeder::class,
             TipePakanSeeder::class,
@@ -28,17 +27,17 @@ class DatabaseSeeder extends Seeder
             TipeDombaSeeder::class,
             JenisDombaSeeder::class,
 
-            // Panggil seeder yang memiliki ketergantungan
-            KavlingSeeder::class, // Tergantung pada InvestorSeeder dan AbkSeeder
-            PakanSeeder::class, // Tergantung pada TipePakanSeeder
-            BreedSeeder::class, // Tergantung pada SpeciesSeeder (jika ada)
-            SubKategoriSeeder::class, // Tergantung pada KategoriSeeder
-            KandangSeeder::class, // Tergantung pada KavlingSeeder dan TipeKandangSeeder
+           
+            KavlingSeeder::class,
+            PakanSeeder::class,
+            BreedSeeder::class,
+            SubKategoriSeeder::class, 
+            KandangSeeder::class,
         ]);
 
-        // Panggil seeder yang paling banyak ketergantungannya di akhir
+      
         $this->call([
-            TernakSeeder::class, // Tergantung pada banyak seeder di atas
+            TernakSeeder::class, 
         ]);
 
         User::factory()->create([
@@ -49,10 +48,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'invesor',
-            'email' => 'investor@gmail.com',
-            'role'  => 'investor',
-            'password' => Hash::make('investor123'),
+            'name' => 'mitra',
+            'email' => 'mitra@gmail.com',
+            'role'  => 'mitra',
+            'password' => Hash::make('mitra123'),
         ]);
     }
 }

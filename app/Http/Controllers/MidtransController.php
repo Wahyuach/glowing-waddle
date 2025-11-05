@@ -17,7 +17,7 @@ class MidtransController extends Controller
     // Display payment page
     public function showPaymentPage()
     {
-        return view('payment');  // You can create a 'payment.blade.php' view
+        return view('payment'); 
     }
 
     // Handle payment initiation

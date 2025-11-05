@@ -304,7 +304,6 @@ return [
     'permission_prefix' => 'permission:', // Biarkan default
     
     'gates' => [
-        // Daftarkan Gate kita di sini (opsional, tapi rapi)
         'is-admin' => 'is-admin',
         'is-mitra' => 'is-mitra',
     ],
@@ -347,11 +346,11 @@ return [
         // Sidebar items:
 
         // =======================================================
-        // MENU KHUSUS ADMIN (DIPASANG GATE 'is-admin')
+        // MENU KHUSUS Mitra (GATE 'is-mitra')
         // =======================================================
-        ['header' => 'ADMIN AREA', 'can' => 'is-mitra'],
+        ['header' => 'Mitra AREA', 'can' => 'is-mitra'],
         [
-            'text' => 'Ternak (mitra)', // Ganti nama biar jelas
+            'text' => 'Ternak (mitra)',
             'url' => 'mitra/ternak',
             'icon' => 'fas fa-fw fa-paw',
             'label_color' => 'success',
@@ -372,9 +371,9 @@ return [
             'can' => 'is-mitra', // <-- HANYA mitra
         ],
         [
-            'text' => 'Manajemen Investor', // Ganti nama biar jelas
+            'text' => 'Manajemen Investor',
             'url' => 'mitra/investor',
-            'icon' => 'fas fa-fw fa-user-shield', // Ganti icon dikit
+            'icon' => 'fas fa-fw fa-user-shield',
             'label_color' => 'success',
             'can' => 'is-mitra', // <-- HANYA mitra
         ],
@@ -388,13 +387,13 @@ return [
         // [
         //     'text' => 'Kejadian',
         //     'url' => 'mitra/logbook',
-        //     'icon' => 'fas fa-fw fa-book', // Ganti icon dikit
+        //     'icon' => 'fas fa-fw fa-book', 
         //     'label_color' => 'success',
-        //     'can' => 'is-mitra', // <-- HANYA mitra
+        //     'can' => 'is-mitra',
         // ],
 
         // =======================================================
-        // MENU KHUSUS ADMIN (DIPASANG GATE 'is-admin')
+        // MENU KHUSUS ADMIN (GATE 'is-admin')
         // =======================================================
         ['header' => 'ADMIN AREA', 'can' => 'is-admin'],
         [

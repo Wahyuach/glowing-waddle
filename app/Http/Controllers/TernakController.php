@@ -831,23 +831,19 @@ class TernakController extends Controller
         }
     }
 
-    /**
-     * ---------------------------------------------------
-     *  METHOD BARU UNTUK INVESTOR
-     * ---------------------------------------------------
-     */
+
     public function myMitra()
     {
-       
+
         $userId = Auth::id();
         $investor = Investor::where('user_id', $userId)->first();
 
         $usersMitra = User::where('role', 'mitra')->get();
 
 
-        // 7. Tampilkan ke view BARU (yang udah di-upgrade)
+
         return view('admin.mitraku', [
-            'usersMitra' => $usersMitra, // <-- Kirim data baru ini ke view
+            'usersMitra' => $usersMitra,
         ]);
     }
 }

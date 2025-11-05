@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TernakController;
@@ -43,6 +44,9 @@ Route::middleware(['auth'])->group(function () {
     //RUTE KHUSUS INVESTOR !!
     // URL: /ternak-saya
     Route::get('/mitra-saya', [TernakController::class, 'myMitra'])->name('admin.mitraku');
+
+    // ubah status
+    Route::post('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
 });
 
 

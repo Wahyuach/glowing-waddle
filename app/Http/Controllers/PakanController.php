@@ -23,10 +23,10 @@ class PakanController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request) // Tambahkan Request $request
+    public function index(Request $request)
     {
         $search = $request->input('search');
-        $showEntries = $request->input('show_entries', 10); // Default 10 entries per page
+        $showEntries = $request->input('show_entries', 10);
 
         $query = Pakan::with('tipePakan');
 
