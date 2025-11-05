@@ -49,10 +49,10 @@ Route::middleware(['auth'])->group(function () {
 // ---------------------------------------------------------------------
 // GRUP 2: KHUSUS UNTUK ADMIN
 // ---------------------------------------------------------------------
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'mitra'])->prefix('mitra')->group(function () {
 
     // --- Rute Kavling ---
-    // URL: /admin/kavling
+    // URL: /mitra/kavling
     Route::get('kavling', [KavlingController::class, 'index'])->name('kavling.index');
     Route::get('kavling/create', [KavlingController::class, 'create'])->name('kavling.create');
     Route::post('kavling', [KavlingController::class, 'store'])->name('kavling.store');
@@ -63,7 +63,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('kavling/import', [KavlingController::class, 'import'])->name('kavling.import');
 
     // Rute Kandang NESTED 
-    // URL: /admin/kavling/{kavling}/kandang
+    // URL: /mitra/kavling/{kavling}/kandang
     Route::prefix('kavling/{kavling}')->group(function () {
         Route::get('kandang', [KandangController::class, 'index'])->name('kavling.kandang.index');
         Route::get('kandang/create', [KandangController::class, 'create'])->name('kavling.kandang.create');
@@ -75,7 +75,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     });
 
     // --- Rute Ternak (Admin) ---
-    // URL: /admin/ternak
+    // URL: /mitra/ternak
     Route::get('ternak', [TernakController::class, 'index'])->name('ternak.index');
     Route::get('ternak/create', [TernakController::class, 'create'])->name('ternak.create');
     Route::post('ternak', [TernakController::class, 'store'])->name('ternak.store');
@@ -90,8 +90,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('weights/{id}', [TernakController::class, 'destroyWeightHistory'])->name('weights.destroy');
     Route::post('ternak/import', [TernakController::class, 'import'])->name('ternak.import');
 
-    // --- Rute Pakan (Admin) ---
-    // URL: /admin/pakan
+    // --- Rute Pakan (mitra) ---
+    // URL: /mitra/pakan
     Route::get('pakan', [PakanController::class, 'index'])->name('pakan.index');
     Route::get('pakan/create', [PakanController::class, 'create'])->name('pakan.create');
     Route::post('pakan', [PakanController::class, 'store'])->name('pakan.store');
@@ -100,8 +100,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::put('pakan/{pakan}', [PakanController::class, 'update'])->name('pakan.update');
     Route::delete('pakan/{pakan}', [PakanController::class, 'destroy'])->name('pakan.destroy');
 
-    // --- Rute Investor (Admin) ---
-    // URL: /admin/investor
+    // --- Rute Investor (mitra) ---
+    // URL: /mitra/investor
     Route::get('investor', [InvestorController::class, 'index'])->name('investor.index');
     Route::get('investor/create', [InvestorController::class, 'create'])->name('investor.create');
     Route::post('investor', [InvestorController::class, 'store'])->name('investor.store');
@@ -111,8 +111,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('investor/{investor}', [InvestorController::class, 'destroy'])->name('investor.destroy');
     Route::post('investor/import', [InvestorController::class, 'import'])->name('investor.import');
 
-    // --- Rute ABK (Admin) ---
-    // URL: /admin/abk
+    // --- Rute ABK (mitra) ---
+    // URL: /mitra/abk
     Route::get('abk', [AbkController::class, 'index'])->name('abk.index');
     Route::get('abk/create', [AbkController::class, 'create'])->name('abk.create');
     Route::post('abk', [AbkController::class, 'store'])->name('abk.store');
