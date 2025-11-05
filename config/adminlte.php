@@ -349,7 +349,7 @@ return [
         // =======================================================
         // MENU KHUSUS ADMIN (DIPASANG GATE 'is-admin')
         // =======================================================
-        ['header' => 'mitra AREA', 'can' => 'is-mitra'],
+        ['header' => 'ADMIN AREA', 'can' => 'is-mitra'],
         [
             'text' => 'Ternak (mitra)', // Ganti nama biar jelas
             'url' => 'mitra/ternak',
@@ -412,7 +412,7 @@ return [
         ['header' => 'PENGATURAN AKUN'],
         [
             'text' => 'Profile',
-            'url' => 'profile/',
+            'url' => 'profile/', // (Pastikan rute ini bener, 'profile' aja?)
             'icon' => 'fas fa-fw fa-user',
             // (Tidak ada 'can', jadi semua bisa lihat)
         ],
