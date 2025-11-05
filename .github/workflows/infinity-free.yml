@@ -1,4 +1,4 @@
-name: Deploy to InfinityFree
+name: Deploy Website via FTP
 
 # Run manually or on push to the main branch
 on:
@@ -21,9 +21,14 @@ jobs:
       - name: Deploy to InfinityFree via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ftpupload.net
+          server: ftp.ternakpark.co.id
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /htdocs/  # For addon domains
+          server-dir: dashboard.ternakpark.co.id/
           timeout: 86400000
           log-level: standard
+
+
+
+
+     
