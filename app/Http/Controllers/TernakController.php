@@ -836,7 +836,7 @@ class TernakController extends Controller
      *  METHOD BARU UNTUK INVESTOR
      * ---------------------------------------------------
      */
-    public function myTernak()
+    public function myMitra()
     {
        
         $userId = Auth::id();
