@@ -39,7 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/reset-password', [ProfileController::class, 'resetPassword'])->name('profile.reset-password');
     Route::post('/profile/subscribe', [ProfileController::class, 'subscribe'])->name('profile.subscribe');
     // Endpoint to mark payment as completed (called from client after snap onSuccess)
-    Route::post('/profile/payment-complete', [ProfileController::class, 'paymentComplete'])->name('profil.payment.complete');
+    Route::post('/profile/payment-complete', [ProfileController::class, 'paymentComplete'])->name('profile.payment.complete');
 
 
     //RUTE KHUSUS INVESTOR !!
