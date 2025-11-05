@@ -11,7 +11,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next): Response
     {
         // Cek apakah user sudah login DAN apakah dia admin
-        if (! $request->user() || ! $request->user()->isAdmin()) {
+        if (! $request->user() || ! $request->user()->isMitra()) {
             // Kalau bukan, lempar ke halaman 403 (Forbidden)
             abort(403);
         }
