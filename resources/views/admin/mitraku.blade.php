@@ -32,7 +32,7 @@
 
 
 
-<div class="col-md-4">
+<div class="col">
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Manajemen Mitra</h3>
