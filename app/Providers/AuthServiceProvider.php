@@ -21,7 +21,7 @@ class AuthServiceProvider extends ServiceProvider
     {
       //Gate  mitra (buat menu admin)
         Gate::define('is-mitra', function (User $user) {
-            return $user->isMitra(); 
+            return $user->isMitra() && $user->subscription_status === 'Active';
         });
 
         //Gate Investor (buat menu 'Ternak Saya')
