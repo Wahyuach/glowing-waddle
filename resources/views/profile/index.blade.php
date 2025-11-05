@@ -33,7 +33,7 @@
                 </b>
             </div>
             <p>Perpanjang atau tambah masa aktif langganan (Rp 1.000,00).</p>
-            <form action="{{ route('profil.subscribe') }}" method="POST">
+            <form action="{{ route('profile.subscribe') }}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-primary btn-block">
                     <i class="fas fa-credit-card"></i> Bayar & Perpanjang 30 Hari
@@ -50,7 +50,7 @@
                 @endif
         </div>
         <p>Silakan perpanjang langganan Anda (Rp 1.000,00).</p>
-        <form action="{{ route('profil.subscribe') }}" method="POST">
+        <form action="{{ route('profile.subscribe') }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-primary btn-block">
                 <i class="fas fa-credit-card"></i> Bayar & Aktifkan 30 Hari
