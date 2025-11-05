@@ -44,7 +44,7 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Hanya mitra yang bisa ditambah waktunya.');
         }
 
-        $daysToAdd = $request->input('days');
+        $daysToAdd = (int)  $request->input('days');
 
       
         $baseDate = ($user->subscription_expires_at && $user->subscription_expires_at > now())
