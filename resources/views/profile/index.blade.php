@@ -170,7 +170,7 @@
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                countdownElement.innerHTML = days + "h " + hours + "j " + minutes + "m " + seconds + "d";
+                countdownElement.innerHTML = days + " hari " + hours + " jam " + minutes + " menit " + seconds + " detik";
             }
         }, 1000);
     }
