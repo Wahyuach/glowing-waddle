@@ -27,43 +27,48 @@
             @if ($user->subscription_status === 'Active' && $user->subscription_expires_at > now())
             <div class="alert alert-success">
                 <h5><i class="icon fas fa-check"></i> Akun Aktif!</h5>
-                Langganan Anda aktif sampai: <b>{{ $user->subscription_expires_at->format('d M Y, H:i') }}</b>
+                Sisa Waktu Anda:
+                <b id="countdown-timer" data-expires="{{ $user->subscription_expires_at->toIso8601String() }}">
+                    Menghitung...
+                </b>
             </div>
-            <p>Perpanjang atau tambah masa aktif langganan.</p>
-            <form action="{{ route('profile.subscribe') }}" method="POST">
+            <p>Perpanjang atau tambah masa aktif langganan (Rp 1.000,00).</p>
+            <form action="{{ route('profil.subscribe') }}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-primary btn-block">
-                    <i class="fas fa-credit-card"></i> Bayar
+                    <i class="fas fa-credit-card"></i> Bayar & Perpanjang 30 Hari
                 </button>
             </form>
 
             @elseif (!$user->subscription_expires_at || $user->subscription_expires_at <= now())
                 <div class="alert alert-danger">
-                <h5><i class="icon fas fa-ban"></i> Akun Nonaktif</h5>
+                <h5><i class="icon fas fa-ban"></i> Akun Expired</h5>
                 @if ($user->subscription_expires_at)
                 Langganan Anda telah berakhir pada: <b>{{ $user->subscription_expires_at->format('d M Y') }}</b>
                 @else
                 Anda belum memiliki langganan aktif.
                 @endif
         </div>
-        <p>Silakan perpanjang langganan Anda.</p>
-        <form action="{{ route('profile.subscribe') }}" method="POST">
+        <p>Silakan perpanjang langganan Anda (Rp 1.000,00).</p>
+        <form action="{{ route('profil.subscribe') }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-primary btn-block">
-                <i class="fas fa-credit-card"></i> Bayar
+                <i class="fas fa-credit-card"></i> Bayar & Aktifkan 30 Hari
             </button>
         </form>
 
         @elseif ($user->subscription_status === 'Inactive')
         <div class="alert alert-warning">
-            <h5><i class="icon fas fa-pause-circle"></i> Akun Dinonaktifkan</h5>
+            <h5><i class="icon fas fa-pause-circle"></i> Akun Dibekukan</h5>
             Akun Anda saat ini dinonaktifkan oleh Admin.
             @if ($user->subscription_expires_at > now())
-            <br>Sisa masa aktif Anda: <b>{{ $user->subscription_expires_at->diffForHumans() }}</b>
+            <br>Sisa masa aktif Anda:
+            <b id="countdown-timer" data-expires="{{ $user->subscription_expires_at->toIso8601String() }}">
+                Menghitung...
+            </b>
             @endif
         </div>
         <p>Harap hubungi Admin untuk mengaktifkan kembali akun Anda.</p>
-        {{-- Tombol bayar kita DISABLE --}}
         <button type="button" class="btn btn-secondary btn-block" disabled>
             <i class="fas fa-credit-card"></i> Bayar (Dibekukan)
         </button>
@@ -142,6 +147,33 @@
 <script src="https://app.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
 
 <script type="text/javascript">
+    const countdownElement = document.getElementById('countdown-timer');
+
+    if (countdownElement) {
+        const expirationTime = new Date(countdownElement.dataset.expires).getTime();
+
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+
+            const distance = expirationTime - now;
+
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                countdownElement.innerHTML = "Telah Berakhir";
+                countdownElement.style.color = 'red';
+                // (Opsional) Refresh halaman biar ganti status
+                window.location.reload();
+            } else {
+                // Hitung Hari, Jam, Menit, Detik
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                countdownElement.innerHTML = days + "h " + hours + "j " + minutes + "m " + seconds + "d";
+            }
+        }, 1000);
+    }
     // CSRF token for AJAX
     const csrfToken = '{{ csrf_token() }}';
 
