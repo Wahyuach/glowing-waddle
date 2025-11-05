@@ -398,9 +398,9 @@ return [
         // =======================================================
         ['header' => 'ADMIN AREA', 'can' => 'is-admin'],
         [
-            'text' => 'Ternak Saya',
-            'url' => 'ternak-saya', 
-            'icon' => 'fas fa-fw fa-horse-head',
+            'text' => 'Mitra Saya',
+            'url' => 'mitra-saya', 
+            'icon' => 'fas fa-fw fa-handshake',
             'label_color' => 'primary',
             'can' => 'is-admin', 
         ],
