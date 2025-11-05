@@ -71,6 +71,7 @@
         @endif
     </div>
 </div>
+@endif
 
 
 <!-- Profile Information Card -->
@@ -135,7 +136,6 @@
 </div>
 
 @stop
-
 @section('js')
 
 @if(isset($snap_token))
