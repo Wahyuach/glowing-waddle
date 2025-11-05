@@ -66,20 +66,19 @@
                             <span class="badge badge-secondary">Nonaktif</span>
                             @endif
                         </td>
+
                         <td>
                             @if ($mitra->subscription_expires_at)
                             <small>
-                                @if ($mitra->subscription_expires_at < now())
-                                    <b class="text-danger">{{ $mitra->subscription_expires_at->format('d M Y') }}</b>
-                                    @else
-                                    <b class="text-success">{{ $mitra->subscription_expires_at->format('d M Y') }}</b>
-                                    @endif
+                                <b class="countdown-timer"
+                                    data-expires="{{ $mitra->subscription_expires_at->toIso8601String() }}">
+                                    Menghitung...
+                                </b>
                             </small>
                             @else
                             <small class="text-muted"><i>N/A</i></small>
                             @endif
                         </td>
-
                         <td>
 
                             <form action="{{ route('users.toggleStatus', $mitra->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Anda yakin ingin mengubah status mitra ini?');">
@@ -128,4 +127,38 @@
     </div>
 </div>
 </div>
+@stop
+
+@section('js')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const countdownElements = document.querySelectorAll('.countdown-timer');
+
+        if (countdownElements.length > 0) {
+
+            const timerInterval = setInterval(function() {
+                const now = new Date().getTime();
+
+                countdownElements.forEach(function(element) {
+                    const expirationTime = new Date(element.dataset.expires).getTime();
+
+                    const distance = expirationTime - now;
+
+                    if (distance < 0) {
+                        element.innerHTML = "Telah Berakhir";
+                        element.className = "text-danger"; 
+                    } else {
+                        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        element.innerHTML = days + "h " + hours + "j " + minutes + "m " + seconds + "d";
+                        element.className = "text-success"; 
+                    }
+                });
+            }, 1000);
+        }
+    });
+</script>
 @stop
