@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     // Dashboard utama (investor & admin bisa lihat)
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    
 
     // Profile (investor & admin bisa lihat)
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
@@ -66,6 +66,8 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'mitra'])->prefix('mitra')->group(function () {
 
     // --- Rute Kavling ---
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+
     // URL: /mitra/kavling
     Route::get('kavling', [KavlingController::class, 'index'])->name('kavling.index');
     Route::get('kavling/create', [KavlingController::class, 'create'])->name('kavling.create');
