@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Ternak;
 use App\Models\Kandang;
 use App\Models\Kategori;
@@ -837,14 +838,16 @@ class TernakController extends Controller
      */
     public function myTernak()
     {
+       
         $userId = Auth::id();
         $investor = Investor::where('user_id', $userId)->first();
-        $ternaks = [];
 
-        if ($investor) {
-            $ternaks = Ternak::where('investor_id', $investor->id)->get();
-        }
+        $usersMitra = User::where('role', 'mitra')->get();
 
-        return view('investor.ternakku', compact('ternaks'));
+
+        // 7. Tampilkan ke view BARU (yang udah di-upgrade)
+        return view('investor.my_ternak', [
+            'usersMitra' => $usersMitra, // <-- Kirim data baru ini ke view
+        ]);
     }
 }
