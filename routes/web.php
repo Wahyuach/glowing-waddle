@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     // Dashboard utama (investor & admin bisa lihat)
-    
+      Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // Profile (investor & admin bisa lihat)
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
