@@ -12,7 +12,7 @@ use App\Models\Abk;
 class LogbookController extends Controller
 {
     /**
-     * Pastikan user sudah login (middleware 'auth' sudah di route admin)
+     * Pastikan user sudah login (middleware 'auth' sudah di route mitra)
      */
     public function __construct()
     {
@@ -37,7 +37,7 @@ class LogbookController extends Controller
 
         $logbooks = $query->paginate(15); 
 
-        return view('admin.logbooks.index', compact('logbooks', 'search'));
+        return view('mitra.logbooks.index', compact('logbooks', 'search'));
     }
 
     /**
@@ -51,7 +51,7 @@ class LogbookController extends Controller
         $kejadianList = ['Melahirkan', 'Pindah Kandang', 'Pindah Tag', 'Sakit', 'Mati', 'Kastrasi', 'Lain-lain'];
         $abkList = Abk::select('name')->get(); 
 
-        return view('admin.logbooks.model.create', compact(
+        return view('mitra.logbooks.model.create', compact(
             'ternaks',
             'kandangs',
             'kejadianList',
@@ -104,7 +104,7 @@ class LogbookController extends Controller
     // --- Method show, edit, update, destroy kamu bisa tambahkan di sini ---
     public function show(Logbook $logbook) 
     {
-        return view('admin.logbooks.model.show', compact('logbook'));
+        return view('mitra.logbooks.model.show', compact('logbook'));
     }
 
     public function edit(Logbook $logbook) 
@@ -115,7 +115,7 @@ class LogbookController extends Controller
         $kejadianList = ['Melahirkan', 'Pindah Kandang', 'Pindah Tag', 'Sakit', 'Mati', 'Kastrasi', 'Lain-lain'];
         $abkList = Abk::select('name')->get(); 
 
-        return view('admin.logbooks.model.edit', compact('logbook', 'ternaks', 'kandangs', 'kejadianList', 'abkList'));
+        return view('mitra.logbooks.model.edit', compact('logbook', 'ternaks', 'kandangs', 'kejadianList', 'abkList'));
     }
 
     public function update(Request $request, Logbook $logbook)

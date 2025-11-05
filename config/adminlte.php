@@ -306,7 +306,7 @@ return [
     'gates' => [
         // Daftarkan Gate kita di sini (opsional, tapi rapi)
         'is-admin' => 'is-admin',
-        'is-investor' => 'is-investor',
+        'is-mitra' => 'is-mitra',
     ],
 
     /*
@@ -349,60 +349,60 @@ return [
         // =======================================================
         // MENU KHUSUS ADMIN (DIPASANG GATE 'is-admin')
         // =======================================================
-        ['header' => 'ADMIN AREA', 'can' => 'is-admin'],
+        ['header' => 'mitra AREA', 'can' => 'is-mitra'],
         [
-            'text' => 'Ternak (Admin)', // Ganti nama biar jelas
-            'url' => 'admin/ternak',
+            'text' => 'Ternak (mitra)', // Ganti nama biar jelas
+            'url' => 'mitra/ternak',
             'icon' => 'fas fa-fw fa-paw',
             'label_color' => 'success',
-            'can' => 'is-admin', // <-- HANYA ADMIN
+            'can' => 'is-mitra', // <-- HANYA mitra
         ],
         [
             'text' => 'Kavling',
-            'url' => 'admin/kavling',
+            'url' => 'mitra/kavling',
             'icon' => 'fas fa-fw fa-warehouse',
             'label_color' => 'success',
-            'can' => 'is-admin', // <-- HANYA ADMIN
+            'can' => 'is-mitra', // <-- HANYA mitra
         ],
         [
             'text' => 'Pakan',
-            'url' => 'admin/pakan',
+            'url' => 'mitra/pakan',
             'icon' => 'fas fa-fw fa-seedling',
             'label_color' => 'success',
-            'can' => 'is-admin', // <-- HANYA ADMIN
+            'can' => 'is-mitra', // <-- HANYA mitra
         ],
         [
             'text' => 'Manajemen Investor', // Ganti nama biar jelas
-            'url' => 'admin/investor',
+            'url' => 'mitra/investor',
             'icon' => 'fas fa-fw fa-user-shield', // Ganti icon dikit
             'label_color' => 'success',
-            'can' => 'is-admin', // <-- HANYA ADMIN
+            'can' => 'is-mitra', // <-- HANYA mitra
         ],
         [
             'text' => 'ABK',
-            'url' => 'admin/abk',
+            'url' => 'mitra/abk',
             'icon' => 'fas fa-fw fa-people-carry',
             'label_color' => 'success',
-            'can' => 'is-admin', // <-- HANYA ADMIN
+            'can' => 'is-mitra', // <-- HANYA mitra
         ],
         // [
         //     'text' => 'Kejadian',
-        //     'url' => 'admin/logbook',
+        //     'url' => 'mitra/logbook',
         //     'icon' => 'fas fa-fw fa-book', // Ganti icon dikit
         //     'label_color' => 'success',
-        //     'can' => 'is-admin', // <-- HANYA ADMIN
+        //     'can' => 'is-mitra', // <-- HANYA mitra
         // ],
 
         // =======================================================
-        // MENU KHUSUS INVESTOR (DIPASANG GATE 'is-investor')
+        // MENU KHUSUS ADMIN (DIPASANG GATE 'is-admin')
         // =======================================================
-        ['header' => 'INVESTOR AREA', 'can' => 'is-investor'],
+        ['header' => 'ADMIN AREA', 'can' => 'is-admin'],
         [
             'text' => 'Ternak Saya',
             'url' => 'ternak-saya', 
             'icon' => 'fas fa-fw fa-horse-head',
             'label_color' => 'primary',
-            'can' => 'is-investor', 
+            'can' => 'is-admin', 
         ],
 
 
@@ -412,7 +412,7 @@ return [
         ['header' => 'PENGATURAN AKUN'],
         [
             'text' => 'Profile',
-            'url' => 'profile/', // (Pastikan rute ini bener, 'profile' aja?)
+            'url' => 'profile/',
             'icon' => 'fas fa-fw fa-user',
             // (Tidak ada 'can', jadi semua bisa lihat)
         ],

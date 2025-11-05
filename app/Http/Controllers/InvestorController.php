@@ -42,7 +42,7 @@ class InvestorController extends Controller
 
         $investors = $query->paginate($showEntries)->withQueryString();
 
-        return view('admin.investor.index', compact('investors', 'search', 'showEntries'));
+        return view('mitra.investor.index', compact('investors', 'search', 'showEntries'));
     }
 
     /**
@@ -52,7 +52,7 @@ class InvestorController extends Controller
      */
     public function create()
     {
-        return view('admin.investor.model.create');
+        return view('mitra.investor.model.create');
     }
 
     /**
@@ -83,7 +83,7 @@ class InvestorController extends Controller
     public function show($id)
     {
         $investor = Investor::findOrFail($id);
-        return view('admin.investor.model.show', compact('investor'));
+        return view('mitra.investor.model.show', compact('investor'));
     }
 
     /**
@@ -95,7 +95,7 @@ class InvestorController extends Controller
     public function edit($id)
     {
         $investor = Investor::findOrFail($id);
-        return view('admin.investor.model.edit', compact('investor'));
+        return view('mitra.investor.model.edit', compact('investor'));
     }
 
     /**

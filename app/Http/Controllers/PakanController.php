@@ -43,7 +43,7 @@ class PakanController extends Controller
 
         $pakans = $query->paginate($showEntries)->withQueryString(); // Paginate results and maintain query string
 
-        return view('admin.pakan.index', compact('pakans', 'search', 'showEntries'));
+        return view('mitra.pakan.index', compact('pakans', 'search', 'showEntries'));
     }
 
     /**
@@ -54,7 +54,7 @@ class PakanController extends Controller
     public function create()
     {
         $tipePakans = TipePakan::all(); // Ambil semua tipe pakan untuk dropdown
-        return view('admin.pakan.model.create', compact('tipePakans'));
+        return view('mitra.pakan.model.create', compact('tipePakans'));
     }
 
     /**
@@ -88,7 +88,7 @@ class PakanController extends Controller
     public function show($id)
     {
         $pakan = Pakan::with('tipePakan')->findOrFail($id); // Temukan Pakan berdasarkan ID dengan relasi
-        return view('admin.pakan.model.show', compact('pakan'));
+        return view('mitra.pakan.model.show', compact('pakan'));
     }
 
     /**
@@ -101,7 +101,7 @@ class PakanController extends Controller
     {
         $pakan = Pakan::findOrFail($id); // Temukan Pakan berdasarkan ID
         $tipePakans = TipePakan::all(); // Ambil semua tipe pakan untuk dropdown
-        return view('admin.pakan.model.edit', compact('pakan', 'tipePakans'));
+        return view('mitra.pakan.model.edit', compact('pakan', 'tipePakans'));
     }
 
     /**

@@ -35,7 +35,7 @@ class ProfileController extends Controller
         try {
             $user = Auth::user();
 
-            if (!$user->isAdmin()) {  
+            if (!$user->isMitra()) {  
                 return redirect()->route('profil.index')
                     ->with('error', 'You are not authorized to subscribe.');
             }

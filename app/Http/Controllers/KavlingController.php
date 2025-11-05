@@ -43,14 +43,14 @@ class KavlingController extends Controller
         $investors = Investor::all();
         $abks = Abk::all();
 
-        return view('admin.kavling.index', compact('kavlings', 'search', 'showEntries', 'investors', 'abks'));
+        return view('mitra.kavling.index', compact('kavlings', 'search', 'showEntries', 'investors', 'abks'));
     }
 
     public function create()
     {
         $investors = Investor::all();
         $abks = Abk::all();
-        return view('admin.kavling.model.create', compact('investors', 'abks'));
+        return view('mitra.kavling.model.create', compact('investors', 'abks'));
     }
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse
@@ -72,7 +72,7 @@ class KavlingController extends Controller
     {
         $kavling = Kavling::with(['investor', 'abk', 'kandangs.ternaks'])->findOrFail($no_kavling);
         
-        return view('admin.kavling.model.show', compact('kavling'));
+        return view('mitra.kavling.model.show', compact('kavling'));
     }
 
     public function edit(string $no_kavling)
@@ -80,7 +80,7 @@ class KavlingController extends Controller
         $kavling = Kavling::with(['investor', 'abk', 'kandangs.ternaks'])->findOrFail($no_kavling);
         $investors = Investor::all();
         $abks = Abk::all();
-        return view('admin.kavling.model.edit', compact('kavling', 'investors', 'abks'));
+        return view('mitra.kavling.model.edit', compact('kavling', 'investors', 'abks'));
     }
 
     public function update(Request $request, string $no_kavling): \Illuminate\Http\RedirectResponse

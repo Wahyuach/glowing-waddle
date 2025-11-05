@@ -179,7 +179,7 @@ class TernakController extends Controller
         $kondisiFilterList = $kondisiList;
         $statusFilterList = $statusList;
 
-        return view('admin.ternak.index', compact(
+        return view('mitra.ternak.index', compact(
             'ternaks',
             'search',
             'showEntries',
@@ -229,7 +229,7 @@ class TernakController extends Controller
         $tipeDombas = TipeDomba::all();
         $jenisDombas = JenisDomba::all();
 
-        return view('admin.ternak.model.create', compact('kandangs', 'kategoris', 'species', 'kondisis', 'statuses', 'subKategoris', 'parents', 'tipeDombas', 'jenisDombas'));
+        return view('mitra.ternak.model.create', compact('kandangs', 'kategoris', 'species', 'kondisis', 'statuses', 'subKategoris', 'parents', 'tipeDombas', 'jenisDombas'));
     }
 
     /**
@@ -313,7 +313,7 @@ class TernakController extends Controller
         $weightHistories = $ternak->weightHistories
             ->sortByDesc('measurement_date')
             ->sortByDesc('id');
-        return view('admin.ternak.model.show', compact('ternak', 'weightHistories'));
+        return view('mitra.ternak.model.show', compact('ternak', 'weightHistories'));
     }
 
     /**
@@ -340,7 +340,7 @@ class TernakController extends Controller
         $tipeDombas = TipeDomba::all();
         $jenisDombas = JenisDomba::all();
 
-        return view('admin.ternak.model.edit', compact('ternak', 'kandangs', 'kategoris', 'species', 'kondisis', 'statuses', 'subKategoris', 'parents', 'tipeDombas', 'jenisDombas'));
+        return view('mitra.ternak.model.edit', compact('ternak', 'kandangs', 'kategoris', 'species', 'kondisis', 'statuses', 'subKategoris', 'parents', 'tipeDombas', 'jenisDombas'));
     }
 
     /**

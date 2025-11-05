@@ -19,14 +19,14 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-      //Gate  Admin (buat menu admin)
-        Gate::define('is-admin', function (User $user) {
-            return $user->isAdmin(); 
+      //Gate  mitra (buat menu admin)
+        Gate::define('is-mitra', function (User $user) {
+            return $user->isMitra(); 
         });
 
         //Gate Investor (buat menu 'Ternak Saya')
-        Gate::define('is-investor', function (User $user) {
-            return $user->isInvestor(); 
+        Gate::define('is-admin', function (User $user) {
+            return $user->isAdmin(); 
         });
     }
 }

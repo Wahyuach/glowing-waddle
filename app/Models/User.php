@@ -33,11 +33,11 @@ class User extends Authenticatable
 
 
     /**
-     * Cek apakah user adalah Investor.
+     * Cek apakah user adalah Mitra.
      */
-    public function isInvestor(): bool
+    public function isMitra(): bool
     {
-        return $this->role === 'investor';
+        return $this->role === 'mitra';
     }
     /**
      * The attributes that should be hidden for serialization.

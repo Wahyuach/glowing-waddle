@@ -46,7 +46,7 @@ class KandangController extends Controller
 
         $kandangs = $query->paginate($showEntries)->withQueryString();
 
-        return view('admin.kavling.kandang.index', compact('kavling', 'kandangs', 'search', 'showEntries'));
+        return view('mitra.kavling.kandang.index', compact('kavling', 'kandangs', 'search', 'showEntries'));
     }
 
     /**
@@ -58,7 +58,7 @@ class KandangController extends Controller
     public function create(Kavling $kavling)
     {
         $tipeKandangs = TipeKandang::all();
-        return view('admin.kavling.kandang.model.create', compact('kavling', 'tipeKandangs'));
+        return view('mitra.kavling.kandang.model.create', compact('kavling', 'tipeKandangs'));
     }
 
     /**
@@ -96,7 +96,7 @@ class KandangController extends Controller
     public function show(Kavling $kavling, Kandang $kandang)
     {
         $kandang->load('tipeKandang', 'ternaks');
-        return view('admin.kavling.kandang.model.show', compact('kavling', 'kandang'));
+        return view('mitra.kavling.kandang.model.show', compact('kavling', 'kandang'));
     }
 
     /**
@@ -110,7 +110,7 @@ class KandangController extends Controller
     {
         $kandang->load('ternaks');
         $tipeKandangs = TipeKandang::all();
-        return view('admin.kavling.kandang.model.edit', compact('kavling', 'kandang', 'tipeKandangs'));
+        return view('mitra.kavling.kandang.model.edit', compact('kavling', 'kandang', 'tipeKandangs'));
     }
 
     /**

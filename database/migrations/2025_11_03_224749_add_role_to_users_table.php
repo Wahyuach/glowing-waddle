@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // 'investor' jadi default role waktu user register
-            $table->string('role')->default('investor')->after('email');
+            // 'mitra' jadi default role waktu user register
+            $table->string('role')->default('mitra')->after('email');
         });
     }
 

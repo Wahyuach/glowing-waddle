@@ -42,7 +42,7 @@ class AbkController extends Controller
 
         $abks = $query->paginate($showEntries)->withQueryString();
 
-        return view('admin.abk.index', compact('abks', 'search', 'showEntries'));
+        return view('mitra.abk.index', compact('abks', 'search', 'showEntries'));
     }
 
     /**
@@ -52,7 +52,7 @@ class AbkController extends Controller
      */
     public function create()
     {
-        return view('admin.abk.model.create');
+        return view('mitra.abk.model.create');
     }
 
     /**
@@ -92,7 +92,7 @@ class AbkController extends Controller
     public function show($id)
     {
         $abk = Abk::findOrFail($id);
-        return view('admin.abk.model.show', compact('abk'));
+        return view('mitra.abk.model.show', compact('abk'));
     }
 
     /**
@@ -104,7 +104,7 @@ class AbkController extends Controller
     public function edit($id)
     {
         $abk = Abk::findOrFail($id);
-        return view('admin.abk.model.edit', compact('abk'));
+        return view('mitra.abk.model.edit', compact('abk'));
     }
 
     /**
