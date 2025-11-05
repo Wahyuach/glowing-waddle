@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -33,20 +34,29 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // Profile (investor & admin bisa lihat)
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profil.index');        
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profil.index');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profil.update'); // This needs to be defined!
     Route::post('/profile/reset-password', [ProfileController::class, 'resetPassword'])->name('profile.reset-password');
     Route::post('/profile/subscribe', [ProfileController::class, 'subscribe'])->name('profil.subscribe');
     // Endpoint to mark payment as completed (called from client after snap onSuccess)
     Route::post('/profile/payment-complete', [ProfileController::class, 'paymentComplete'])->name('profil.payment.complete');
 
-    
+
     //RUTE KHUSUS INVESTOR !!
     // URL: /ternak-saya
     Route::get('/mitra-saya', [TernakController::class, 'myMitra'])->name('admin.mitraku');
 
     // ubah status
     Route::post('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
+
+    Route::post('/users/{user}/add-time', [UserController::class, 'addSubscriptionTime'])
+        ->name('users.addSubscriptionTime');
+
+
+
+
+    Route::post('/midtrans/notification', [MidtransController::class, 'handleNotification'])
+        ->name('midtrans.notification');
 });
 
 

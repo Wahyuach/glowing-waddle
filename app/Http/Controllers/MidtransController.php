@@ -2,41 +2,63 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\MidtransService;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
+use App\Models\User;
+use Carbon\Carbon;
 class MidtransController extends Controller
 {
-    protected $midtrans;
-
-    public function __construct(MidtransService $midtrans)
+    public function handleNotification(Request $request)
     {
-        $this->midtrans = $midtrans;
-    }
+        $notification = $request->all();
 
-    // Display payment page
-    public function showPaymentPage()
-    {
-        return view('payment'); 
-    }
+        $serverKey = config('services.midtrans.server_key');
 
-    // Handle payment initiation
-    public function initiatePayment(Request $request)
-    {
-        // Example data (replace with dynamic order data)
-        $order_id = 'ORDER-' . time();
-        $amount = 100000;  // Amount in IDR
-        $customer_details = [
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-        ];
+        $signatureKey = hash('sha512', $notification['order_id'] . $notification['status_code'] . $notification['gross_amount'] . $serverKey);
 
-        // Create a transaction and get the snap token
-        $snap_token = $this->midtrans->createTransaction($order_id, $amount, $customer_details);
+        if ($signatureKey != $notification['signature_key']) {
+            Log::warning('Midtrans Webhook: Signature tidak valid.', ['order_id' => $notification['order_id']]);
+            return response()->json(['status' => 'error', 'message' => 'Invalid signature'], 403);
+        }
 
-        // Return the token to the frontend for payment
-        return view('payment', compact('snap_token')); // Pass the snap token to the view
+        Log::info('Midtrans Webhook: Notifikasi diterima.', $notification);
+
+        $orderId = $notification['order_id'];
+        $transactionStatus = $notification['transaction_status'];
+        $fraudStatus = $notification['fraud_status'];
+
+        if ($transactionStatus == 'capture' || $transactionStatus == 'settlement') {
+
+            if (strpos($orderId, 'SUB-') === 0) {
+                
+                $parts = explode('-', $orderId);
+                $userId = end($parts);
+                
+                $user = User::find($userId);
+
+               
+                if ($user) {
+                    $daysToAdd = 30;
+                    
+                    $baseDate = ($user->subscription_expires_at && $user->subscription_expires_at > now())
+                                    ? $user->subscription_expires_at
+                                    : now();
+                    
+                    $newExpiryDate = $baseDate->addDays($daysToAdd);
+
+                    $user->update([
+                        'subscription_expires_at' => $newExpiryDate,
+                        'subscription_status' => 'Active'
+                    ]);
+
+                    Log::info("Midtrans Webhook: SUKSES. Langganan user {$userId} diperpanjang 30 hari.");
+                
+                } else {
+                    Log::error("Midtrans Webhook: GAGAL. User ID {$userId} dari Order ID {$orderId} tidak ditemukan.");
+                }
+            }
+        }
+        
+        return response()->json(['status' => 'ok']);
     }
 }

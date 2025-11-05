@@ -24,14 +24,12 @@
         </div>
         <div class="card-body">
             @if ($user->subscription_status === 'Active' && $user->subscription_expires_at > now())
-            {{-- 1. Status Aktif --}}
             <div class="alert alert-success">
                 <h5><i class="icon fas fa-check"></i> Akun Aktif!</h5>
                 Langganan Anda aktif sampai:
                 <b>{{ $user->subscription_expires_at->format('d M Y, H:i') }}</b>
             </div>
             @else
-            {{-- 2. Status Inactive / Expired --}}
             <div class="alert alert-danger">
                 <h5><i class="icon fas fa-ban"></i> Akun Tidak Aktif</h5>
                 @if ($user->subscription_expires_at && $user->subscription_expires_at < now())
@@ -43,9 +41,7 @@
             </div>
             @endif
 
-            {{-- TOMBOL BAYAR (Muncul selalu) --}}
             <p>Perpanjang langganan Anda selama 30 hari (Rp 1.000,00).</p>
-            {{-- Ini form yang manggil method 'subscribe' sampeyan --}}
             <form action="{{ route('profile.subscribe') }}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-primary btn-block">

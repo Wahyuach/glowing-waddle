@@ -82,7 +82,25 @@
                                 </button>
                                 @endif
                             </form>
+                            
+                            <form action="{{ route('users.addSubscriptionTime', $mitra->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Tambah 7 hari untuk mitra ini?');">
+                                @csrf
+                                <input type="hidden" name="days" value="7">
+                                <button type="submit" class="btn btn-info btn-xs" title="Tambah 7 Hari">
+                                    <i class="fas fa-fw fa-plus"></i> 7
+                                </button>
+                            </form>
+
+                            <form action="{{ route('users.addSubscriptionTime', $mitra->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Tambah 30 hari untuk mitra ini?');">
+                                @csrf
+                                <input type="hidden" name="days" value="30">
+                                <button type="submit" class="btn btn-warning btn-xs" title="Tambah 30 Hari">
+                                    <i class="fas fa-fw fa-plus"></i> 30
+                                </button>
+                            </form>
                         </td>
+
+
                     </tr>
                     @empty
                     <tr>

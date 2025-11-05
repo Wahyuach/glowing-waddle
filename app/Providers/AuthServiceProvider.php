@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Providers;
+
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use App\Models\User;
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -19,14 +21,17 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-      //Gate  mitra (buat menu admin)
+        //Gate  mitra (buat menu admin)
         Gate::define('is-mitra', function (User $user) {
-            return $user->isMitra() && $user->subscription_status === 'Active';
+            return $user->isMitra() &&
+                $user->subscription_status === 'Active' &&
+                $user->subscription_expires_at && 
+                $user->subscription_expires_at > now(); 
         });
 
         //Gate Investor (buat menu 'Ternak Saya')
         Gate::define('is-admin', function (User $user) {
-            return $user->isAdmin(); 
+            return $user->isAdmin();
         });
     }
 }
