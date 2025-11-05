@@ -14,6 +14,31 @@
 </div>
 @endif
 
+
+<!-- Subscription Status (Only for Mitra) -->
+@if($user->isMitra())
+<div class="card mt-4">
+    <div class="card-header">
+        <h3 class="card-title">Subscription Status</h3>
+    </div>
+    <div class="card-body">
+        <p><strong>Status:</strong> {{ ucfirst($subscriptionStatus) }}</p>
+
+        <!-- Show Subscribe/Payment button based on status -->
+        @if($subscriptionStatus === 'inactive')
+        <form action="{{ route('profil.subscribe') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-success">Subscribe Now</button>
+        </form>
+        @else
+        <!-- No button if the status is active -->
+        <p>You are already subscribed. Thank you!</p>
+        @endif
+    </div>
+</div>
+@endif
+
+
 <!-- Profile Information Card -->
 <div class="card">
     <div class="card-header">
@@ -43,29 +68,6 @@
         </form>
     </div>
 </div>
-
-<!-- Subscription Status (Only for Admins) -->
-@if($user->isAdmin())
-<div class="card mt-4">
-    <div class="card-header">
-        <h3 class="card-title">Subscription Status</h3>
-    </div>
-    <div class="card-body">
-        <p><strong>Status:</strong> {{ ucfirst($subscriptionStatus) }}</p>
-
-        <!-- Show Subscribe/Payment button based on status -->
-        @if($subscriptionStatus === 'inactive')
-        <form action="{{ route('profil.subscribe') }}" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-success">Subscribe Now</button>
-        </form>
-        @else
-        <!-- No button if the status is active -->
-        <p>You are already subscribed. Thank you!</p>
-        @endif
-    </div>
-</div>
-@endif
 
 <!-- Password Reset Card -->
 <div class="card mt-4">
