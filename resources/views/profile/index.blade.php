@@ -30,7 +30,7 @@
                 Langganan Anda aktif sampai: <b>{{ $user->subscription_expires_at->format('d M Y, H:i') }}</b>
             </div>
             <p>Perpanjang atau tambah masa aktif langganan.</p>
-            <form action="{{ route('profil.subscribe') }}" method="POST">
+            <form action="{{ route('profile.subscribe') }}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-primary btn-block">
                     <i class="fas fa-credit-card"></i> Bayar
@@ -47,7 +47,7 @@
                 @endif
         </div>
         <p>Silakan perpanjang langganan Anda.</p>
-        <form action="{{ route('profil.subscribe') }}" method="POST">
+        <form action="{{ route('profile.subscribe') }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-primary btn-block">
                 <i class="fas fa-credit-card"></i> Bayar
