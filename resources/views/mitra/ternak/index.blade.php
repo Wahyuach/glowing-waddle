@@ -75,7 +75,7 @@
                     @endif
 
                     {{-- Form pencarian dan filter dropdown --}}
-                    <form id="filterForm" action="{{ route('ternak.index') }}" method="GET" class="mb-3">
+                    <!-- <form id="filterForm" action="{{ route('ternak.index') }}" method="GET" class="mb-3">
                         <div class="row">
                             <div class="col-md-2">
                                 <label>Menampilkan</label>
@@ -97,7 +97,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label>Kategori</label>
-                                <select name="filter_kategori" class="form-control form-control-sm">
+                                <select name="filter_kategori" class="form-control form-control-sm"> 
                                     <option value="">-- Semua Kategori --</option>
                                     @foreach($kategoriFilterList as $kategori)
                                         <option value="{{ $kategori->id }}" {{ $filterKategori == $kategori->id ? 'selected' : '' }}>{{ $kategori->name }}</option>
@@ -159,7 +159,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         {{-- Baris baru untuk filter 'Terakhir Diukur' (rentang tanggal) dan Search --}}
                         <div class="row mt-2">
                             <div class="col-md-4">
