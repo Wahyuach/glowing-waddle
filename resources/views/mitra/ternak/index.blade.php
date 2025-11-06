@@ -75,8 +75,8 @@
                     @endif
 
                     {{-- Form pencarian dan filter dropdown --}}
-                    <!-- <form id="filterForm" action="{{ route('ternak.index') }}" method="GET" class="mb-3">
-                        <div class="row">
+                    <form id="filterForm" action="{{ route('ternak.index') }}" method="GET" class="mb-3">
+                    <!--    <div class="row">
                             <div class="col-md-2">
                                 <label>Menampilkan</label>
                                 <select name="show_entries" class="form-control form-control-sm">
@@ -161,7 +161,7 @@
                             </div>
                         </div> -->
                         {{-- Baris baru untuk filter 'Terakhir Diukur' (rentang tanggal) dan Search --}}
-                        <div class="row mt-2">
+                        <!-- <div class="row mt-2">
                             <div class="col-md-4">
                                 <label for="filter_last_measured_date_start">Terakhir Diukur (Mulai)</label>
                                 <input type="date" name="filter_last_measured_date_start" id="filter_last_measured_date_start" class="form-control form-control-sm" value="{{ $filterLastMeasuredDateStart ?? '' }}">
@@ -179,7 +179,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row mt-3">
                             <div class="col-md-12 text-right">
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-filter mr-1"></i>Terapkan Filter</button>
