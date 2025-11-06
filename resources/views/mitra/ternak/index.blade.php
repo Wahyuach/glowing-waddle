@@ -170,7 +170,7 @@
                                 <label for="filter_last_measured_date_end">Terakhir Diukur (Akhir)</label>
                                 <input type="date" name="filter_last_measured_date_end" id="filter_last_measured_date_end" class="form-control form-control-sm" value="{{ $filterLastMeasuredDateEnd ?? '' }}">
                             </div> -->
-                            <div class="col-md-4 ml-auto">
+                            <div class="col-md-4">
                                 <label>Cari</label>
                                 <div class="input-group input-group-sm">
                                     <input type="text" name="search" class="form-control" placeholder="Cari Ternak..." value="{{ $search }}">
