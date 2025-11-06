@@ -76,8 +76,8 @@
 
                     {{-- Form pencarian dan filter dropdown --}}
                     <form id="filterForm" action="{{ route('ternak.index') }}" method="GET" class="mb-3">
-                    <!--    <div class="row">
-                            <div class="col-md-2">
+                      <div class="row">
+                    <!--        <div class="col-md-2">
                                 <label>Menampilkan</label>
                                 <select name="show_entries" class="form-control form-control-sm">
                                     <option value="10" {{ $showEntries == 10 ? 'selected' : '' }}>10</option>
@@ -169,7 +169,7 @@
                             <div class="col-md-4">
                                 <label for="filter_last_measured_date_end">Terakhir Diukur (Akhir)</label>
                                 <input type="date" name="filter_last_measured_date_end" id="filter_last_measured_date_end" class="form-control form-control-sm" value="{{ $filterLastMeasuredDateEnd ?? '' }}">
-                            </div>
+                            </div> -->
                             <div class="col-md-4 ml-auto">
                                 <label>Cari</label>
                                 <div class="input-group input-group-sm">
@@ -179,7 +179,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div> 
                         <div class="row mt-3">
                             <div class="col-md-12 text-right">
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-filter mr-1"></i>Terapkan Filter</button>
